@@ -30,10 +30,10 @@
                 audio.play(`sound/effects/bump.mp3`)
                 break
             case catacombs.events.EXIT:
-                audio.play('sound/effect/door-open.mp3')
+                audio.play('sound/effects/door-open.mp3')
                 break
             case catacombs.events.FAKE_EXIT:
-                audio.play('sound/effect/door-closed.mp3')
+                audio.play('sound/effects/door-closed.mp3')
                 break
             case catacombs.events.RAT_NOISE:
             case catacombs.events.RAT_BITE:
