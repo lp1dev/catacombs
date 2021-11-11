@@ -76,7 +76,9 @@
         }
         output = output ? output : catacombs.output()
         gameOutputDiv.className = ""
-        gameOutputDiv.innerHTML = output
+        if (output) {
+            gameOutputDiv.innerHTML = output
+        }
         setTimeout(() => gameOutputDiv.className = 'appearing', 500)
         playEffect(output)
         map.update(key, output)

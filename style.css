@@ -31,7 +31,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .appearing {
     opacity: 0 !important;
-    transition: opacity 2s ease-in;
+    transition: opacity 5s ease-in;
 }
 
 #footer {
@@ -52,8 +52,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .touch-control {
-    height: 3.5rem !important;
-    width: 3.5rem !important;
-    margin: 0.4rem;
+    height: 4.5rem !important;
+    width: 4.5rem !important;
+    margin: 0.5rem;
     border-radius: 5px;
 }
