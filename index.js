@@ -1,5 +1,6 @@
 (function() {
     let music = true
+    let effects = true
     const audio = {music: new Audio('sound/catacombs.mp3'), player: new Audio(), play: (soundURL) => {
         console.log(soundURL)
         audio.player.src = soundURL
@@ -83,7 +84,7 @@
         gameOutputDiv.innerHTML = 'Loading sound files...'
         audio.music.load()
         audio.music.loop = true;
-        gameOutputDiv.innerHTML = 'Press space to start playing'
+        gameOutputDiv.innerHTML = 'Press space (or touch this text) to start playing'
         document.addEventListener('keydown', (event) => handleKeyboard(event.key)) 
     }
 
@@ -99,5 +100,32 @@
             audio.music.volume = 1
         }
     }
+
+    window.effectsControl = () => {
+        const musicControlP = document.querySelector('#effects-control')
+        effects = !effects
+        musicControlP.innerHTML = 'Effects : ' + (effects ? 'On' : 'Off')
+        if (!effects) {
+            audio.player.pause()
+            audio.player.volume = 0
+        } else {
+            audio.player.play()
+            audio.player.volume = 1
+        }
+    }
+
+    window.touchControls = () => {
+        const touchControlsP = document.querySelector('#touch-controls-control')
+        const touchControls = document.querySelector('#touch-controls')
+        if (touchControls.style.display != 'none') {
+            touchControlsP.innerHTML = 'Show touch controls'
+            touchControls.style.display = 'none'
+        } else {
+            touchControlsP.innerHTML = 'Hide touch controls'
+            touchControls.style.display = ''
+        }
+    }
+
+    window.handleKeyboard = handleKeyboard
 
 })();

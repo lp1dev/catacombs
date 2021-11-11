@@ -1,6 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>C A T A C O M B S - Sound-Based Exploration Game</title>
         <link rel="stylesheet" href="style.css">
         <style>
@@ -14,13 +15,26 @@
              <h3>A sound-based exploration game</h3>
         </div>
         <div class="container">
-            <div id="game-output">
-                Press space to start playing
+            <div id="minimap">
+
+            </div>
+            <div id="game-output" onclick="handleKeyboard(' ')">
+            </div>
+            <div id="touch-controls">
+                <button class="touch-control" onclick="handleKeyboard('ArrowUp')">Up</button>
+                <div>
+                    <button class="touch-control" onclick="handleKeyboard('ArrowLeft')">Left</button>
+                    <button class="touch-control" onclick="handleKeyboard('ArrowDown')">Down</button>
+                    <button class="touch-control" onclick="handleKeyboard('ArrowRight')">Right</button>    
+                </div>
+                
             </div>
         </div>
         <div id="footer">
             <p id="music-control" onclick="musicControl()">Music : On</p><br/>
-            <p>Controls : Arrow Keys</p><br/>
+            <p id="effects-control" onclick="effectsControl()">Effects : On</p><br/>
+            <p id="touch-controls-control" onclick="touchControls()">Hide Touch Controls</p><br/>
+            <!-- <p id="minimap-control" onclick="showMinimap()">Show Minimap</p> -->
         </div>
         <script type="text/javascript" src="index.js"></script>
         <script type="text/javascript" src="catacombs.js"></script>
