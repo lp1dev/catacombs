@@ -22,6 +22,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 #game-output {
+    max-height: 3rem;
+    height: 3rem;
     font-family: 'Caveat Brush', cursive;
     font-size: 2rem;
     opacity: 100;
