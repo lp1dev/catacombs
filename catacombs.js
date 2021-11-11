@@ -1,7 +1,7 @@
 (function() {
 
     const DEBUG = true
-    const MAPSIZE = 15
+    let MAPSIZE = 15
     const BIFUCATION_CHANCES = 6
     const GLASS_CHANCES = 25
     const RATS_CHANCES = 30
@@ -10,6 +10,10 @@
     let OUTPUT = ""
     let map
     let tileBuffer = undefined
+
+    function updateMapSize(size) {
+        MAPSIZE = size
+    }
 
     const tilesTypes = {
         PLAYER: "X",
@@ -43,7 +47,6 @@
     }
 
     function drawMap(map) {
-        // console.clear()
         for (line of map.t) {
             let printedLine = ""
             for (tile of line) {
@@ -138,9 +141,15 @@
     function startGame() {
         map = generateMap()
         map.lives = 3
+        map.MAPSIZE = MAPSIZE
+        map.finished = false
+        window.catacombs.map = map
     }
 
     function handleInput() {
+        if (map.finished) {
+            return
+        }
         function move(input) {
             switch (map.t[map.player.y + directions[input].y][map.player.x + directions[input].x]) {
             case tilesTypes.WALL:
@@ -148,6 +157,7 @@
                 break
             case tilesTypes.EXIT:
                 OUTPUT = events.EXIT
+                map.finished = true
                 break
             case tilesTypes.FAKE_EXIT:
                 OUTPUT = events.FAKE_EXIT
@@ -199,13 +209,14 @@
             'LEFT': () => move(INPUT),
             'RIGHT': () => move(INPUT)
         }
-        if (handlers[INPUT]) {
+        if (handlers[INPUT] && map.lives) {
             handlers[INPUT]()
         } else {
             console.error('Invalid input', INPUT)
         }
         if (map.lives <= 0) {
             OUTPUT = events.DEATH
+            map.finished = true
         }
         DEBUG ? drawMap(map) : null
     }
@@ -220,7 +231,7 @@
         return buffer
     }
 
-    const catacombs = {startGame, input, output, handleInput, events}
+    const catacombs = {startGame, input, output, handleInput, events, updateMapSize}
     window.catacombs = catacombs
 
 })();

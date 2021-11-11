@@ -1,8 +1,10 @@
 (function() {
     let music = true
     let effects = true
+    let minimap = false
+    let difficulty = 0
+
     const audio = {music: new Audio('sound/catacombs.mp3'), player: new Audio(), play: (soundURL) => {
-        console.log(soundURL)
         audio.player.src = soundURL
         audio.player.load()
         audio.player.play()
@@ -67,6 +69,7 @@
                 audio.music.play()
                 audio.play('sound/effects/lamp-break.mp3')
                 output = catacombs.events.LAMP_BROKE
+                map.init()
                 break
             default:
                 return
@@ -74,10 +77,9 @@
         output = output ? output : catacombs.output()
         gameOutputDiv.className = ""
         gameOutputDiv.innerHTML = output
-        // gameOutputDiv.className = "appearing"
         setTimeout(() => gameOutputDiv.className = 'appearing', 500)
         playEffect(output)
-
+        map.update(key, output)
     }
     window.onload = () => {
         gameOutputDiv = document.querySelector("#game-output")
@@ -124,6 +126,33 @@
             touchControlsP.innerHTML = 'Hide touch controls'
             touchControls.style.display = ''
         }
+    }
+
+    window.minimapControl = () => {
+        const minimapControlP = document.querySelector('#minimap-control')
+        const minimapCanvas = document.querySelector('#minimap')
+        minimap = !minimap
+        if (minimapCanvas.style.display == 'none') {
+            minimapCanvas.style.display = ''
+            minimapControlP.innerHTML = 'Minimap : Off'
+        } else {
+            minimapCanvas.style.display = 'none'
+            minimapControlP.innerHTML = 'Minimap : On'
+        }
+    }
+
+    window.difficultyControl = () => {
+        const difficultyControlP = document.querySelector('#difficulty-control')
+        const difficulties = ['BEGINNER', 'ADVENTURER', 'HARDCORE', 'CHALLENGER']
+
+        if (difficulty < 3) {
+            difficulty += 1
+        } else {
+            difficulty = 0
+        }
+        difficultyControlP.innerHTML = 'Difficulty : '+difficulties[difficulty]
+        catacombs.updateMapSize(15*(difficulty+1))
+        catacombs.startGame()
     }
 
     window.handleKeyboard = handleKeyboard
